@@ -22,6 +22,7 @@ use App\Http\Controllers\ImageController;
 // Authentication
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/upload', [ImageController::class, 'upload']);
 
 // Protected Routes
 Route::group(['middleware' => ['auth:sanctum']], function() {
@@ -44,9 +45,9 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::post('/accept-friend-request/{id}', [ProfileController::class, 'acceptFriendRequest']);
 
     // Images
-    Route::post('/upload', [ImageController::class, 'upload']);
     Route::get('/image/{filename}', [ImageController::class, 'getImage']);
 
-    // Logout
+    // Auth
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/check', [AuthController::class, 'check']);
 });

@@ -66,4 +66,8 @@ class AuthController extends Controller
             'message' => 'Logged out'
         ], 200);
     }
+
+    public function check() {
+        return response(null, 200);
+    }
 }

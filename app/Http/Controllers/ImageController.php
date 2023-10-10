@@ -9,7 +9,7 @@ class ImageController extends Controller
 {
     public function upload(Request $request) {
         $request->validate([
-            'image' => 'required|image|mimes:png,jpeg,jpg,mp4'
+            'image' => 'required|image|mimes:png,jpeg,jpg'
         ]);
 
         $image_name = time() . '.' . $request->image->extension();

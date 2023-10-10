@@ -29,7 +29,7 @@ class FeedResource extends JsonResource
             'user_likes' => UserLikeResource::collection($this->likes),
             'comment_count' => $this->comments->count(),
             'comments' => CommentResource::collection($this->comments),
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at->format('F m, Y - h:i A'),
         ];
     }
 }
