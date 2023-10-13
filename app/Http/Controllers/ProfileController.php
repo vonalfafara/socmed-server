@@ -48,8 +48,8 @@ class ProfileController extends Controller
         ], 200);
     }
     
-    public function acceptFriendRequest(string $id) {
-        $fr = FriendRequest::find($id);
+    public function acceptFriendRequest(Request $request) {
+        $fr = FriendRequest::find($request->input('id'));
 
         Friend::insert([
             [
@@ -62,8 +62,29 @@ class ProfileController extends Controller
             ]
         ]);
 
+        $fr->delete();
+
         return response([
             'message' => 'Friend request accepted'
         ], 201);
+    }
+
+    public function rejectFriendRequest(Request $request) {
+        FriendRequest::destroy($request->input('id'));
+
+        return response([
+            'message' => 'Friend request rejected'
+        ], 200);
+    }
+
+    public function getSenderFr(string $id) {
+        $fr = FriendRequest::where('user_to', $id)->where('user_id', auth()->user()->id)->first();
+        $f = Friend::where('friends_with', $id)->where('user_id', auth()->user()->id)->first();
+
+        $response = [
+            'has_fr' => $fr || $f ? true : false
+        ];
+        
+        return response($response, 200);
     }
 }

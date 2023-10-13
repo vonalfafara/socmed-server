@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ImageController;
@@ -22,6 +23,9 @@ use App\Http\Controllers\ImageController;
 // Authentication
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+
+// Images
+Route::get('/image/{filename}', [ImageController::class, 'getImage']);
 Route::post('/upload', [ImageController::class, 'upload']);
 
 // Protected Routes
@@ -38,14 +42,17 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     // Comment
     Route::post('/comment/{post_id}', [PostController::class, 'comment']);
 
+    // Users
+    Route::get('/users/{search_term?}', [UserController::class, 'getUsers']);
+
     // Profile
     Route::get('/profile/{user_id?}', [ProfileController::class, 'getProfile']);
     Route::get('/friend-request', [ProfileController::class, 'getFriendRequests']);
+    Route::get('/get-sender-friend-request/{id}', [ProfileController::class, 'getSenderFr']);
     Route::post('/friend-request', [ProfileController::class, 'sendFriendRequest']);
-    Route::post('/accept-friend-request/{id}', [ProfileController::class, 'acceptFriendRequest']);
+    Route::post('/accept-friend-request', [ProfileController::class, 'acceptFriendRequest']);
+    Route::post('/reject-friend-request', [ProfileController::class, 'rejectFriendRequest']);
 
-    // Images
-    Route::get('/image/{filename}', [ImageController::class, 'getImage']);
 
     // Auth
     Route::post('/logout', [AuthController::class, 'logout']);

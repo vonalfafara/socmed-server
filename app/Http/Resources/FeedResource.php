@@ -16,6 +16,16 @@ class FeedResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $user_likes = UserLikeResource::collection($this->likes);
+        $liked = false;
+
+        foreach ($user_likes as $like) {
+            if ($like->user->id === auth()->user()->id) {
+                $liked = true;
+                break;
+            }
+        }
+
         return [
             'id' => $this->id,
             'user' => [
@@ -25,11 +35,13 @@ class FeedResource extends JsonResource
             ],
             'body' => $this->body,
             'media' => $this->media,
+            'liked' => $liked,
             'like_count' => $this->likes->count(),
             'user_likes' => UserLikeResource::collection($this->likes),
             'comment_count' => $this->comments->count(),
             'comments' => CommentResource::collection($this->comments),
             'created_at' => $this->created_at->format('F m, Y - h:i A'),
+            'show_comments' => false
         ];
     }
 }

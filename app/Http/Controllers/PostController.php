@@ -101,7 +101,7 @@ class PostController extends Controller
 
         if ($like) {
             $like->delete();
-            return $this->index();
+            return response(200);
         }
 
         $post = Post::find($post_id);
@@ -117,21 +117,7 @@ class PostController extends Controller
             'post_id' => $post_id
         ]);
 
-        return $this->index();
-    }
-
-    public function unlike(string $id) {
-        $like = Like::find($id);
-
-        if (!$like) {
-            return response([
-                'message' => 'Like not found'
-            ]);
-        }
-
-        $like->delete();
-
-        return $this->index();
+        return response(200);
     }
 
     public function comment(Request $request, string $post_id) {
@@ -145,6 +131,6 @@ class PostController extends Controller
             'body' => $fields['body']
         ]);
 
-        return $this->index();
+        return response(200);
     }
 }
