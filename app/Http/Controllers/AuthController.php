@@ -70,4 +70,10 @@ class AuthController extends Controller
     public function check() {
         return response(null, 200);
     }
+
+    public function test() {
+        return response([
+            'message' => 'ok'
+        ], 200);
+    }
 }
