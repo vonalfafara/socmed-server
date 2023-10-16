@@ -54,7 +54,6 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::post('/accept-friend-request', [ProfileController::class, 'acceptFriendRequest']);
     Route::post('/reject-friend-request', [ProfileController::class, 'rejectFriendRequest']);
 
-
     // Auth
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/check', [AuthController::class, 'check']);
