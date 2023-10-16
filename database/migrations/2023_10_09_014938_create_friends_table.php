@@ -13,10 +13,8 @@ return new class extends Migration
     {
         Schema::create('friends', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('friends_with');
-            $table->foreign('friends_with')->references('id')->on('users');
+            $table->unsignedBigInteger('user_id')->index();
+            $table->unsignedBigInteger('friends_with')->index();
             $table->timestamps();
         });
     }
