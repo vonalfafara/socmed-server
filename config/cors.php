@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['https://socmed-client.onrender.com'],
+    'allowed_origins' => ['*'],
 
     'allowed_origins_patterns' => [],
 
